@@ -9,5 +9,10 @@
 		<managed-bean-class>control.Index2Bean</managed-bean-class>
 		<managed-bean-scope>view</managed-bean-scope>
 	</managed-bean>
+	<managed-bean>
+		<managed-bean-name>index2Bean</managed-bean-name>
+		<managed-bean-class>control.Index2Bean</managed-bean-class>
+		<managed-bean-scope>view</managed-bean-scope>
+	</managed-bean>
 
 </faces-config>
