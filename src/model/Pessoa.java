@@ -1,6 +1,8 @@
 package model;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Pessoa implements Serializable {
 
@@ -11,15 +13,20 @@ public class Pessoa implements Serializable {
 	private String nome;
 	private String cel;
 	private String email;
+	//Relacionamento Unidirecional com a classe Endereco
+	private List<Endereco> enderecos;
 	
-	public Pessoa() { }
+	public Pessoa() { 
+		this.enderecos = new ArrayList<Endereco>();
+	}
 	
-	public Pessoa(int cpf, String nome, String cel, String email) {
+	public Pessoa(int cpf, String nome, String cel, String email, List<Endereco> enderecos) {
 		super();
 		this.cpf = cpf;
 		this.nome = nome;
 		this.cel = cel;
 		this.email = email;
+		this.enderecos = enderecos;
 	}
 
 	public int getCpf() {
@@ -53,6 +60,14 @@ public class Pessoa implements Serializable {
 	public void setEmail(String email) {
 		this.email = email;
 	}
+	
+	public List<Endereco> getEnderecos() {
+		return enderecos;
+	}
+
+	public void setEnderecos(List<Endereco> enderecos) {
+		this.enderecos = enderecos;
+	}
 
 	@Override
 	public int hashCode() {
@@ -78,6 +93,6 @@ public class Pessoa implements Serializable {
 
 	@Override
 	public String toString() {
-		return "Pessoa [cpf=" + cpf + ", nome=" + nome + ", cel=" + cel + ", email=" + email + "]";
+		return "Pessoa [cpf=" + cpf + ", nome=" + nome + ", cel=" + cel + ", email=" + email + ", Endereços=" + getEnderecos() + "]" ;
 	}
 }

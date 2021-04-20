@@ -13,7 +13,7 @@ public class PessoaService {
 		
 		this.listaDePessoas = new ArrayList<Pessoa>();
 		
-		for (int i = 1; i <= 15; i++) {
+		for (int i = 1; i <= 5; i++) {
 			
 			Pessoa p = new Pessoa();
 			
@@ -21,6 +21,10 @@ public class PessoaService {
 			p.setNome("Teste" + i);
 			p.setCel("(21) " + i + "1111-1111");
 			p.setEmail("teste" + i + "@gmail.com");
+			
+			EnderecoService serv = new EnderecoService(i -1);
+			
+			p.setEnderecos(serv.getListaEnderecos());
 			
 			listaDePessoas.add(p);
 		}
