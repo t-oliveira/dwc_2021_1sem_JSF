@@ -15,9 +15,11 @@ public class Pessoa implements Serializable {
 	private String email;
 	//Relacionamento Unidirecional com a classe Endereco
 	private List<Endereco> enderecos;
+	private Endereco endPadrao;
 	
 	public Pessoa() { 
 		this.enderecos = new ArrayList<Endereco>();
+		this.endPadrao = new Endereco();
 	}
 	
 	public Pessoa(int cpf, String nome, String cel, String email, List<Endereco> enderecos) {
@@ -67,6 +69,14 @@ public class Pessoa implements Serializable {
 
 	public void setEnderecos(List<Endereco> enderecos) {
 		this.enderecos = enderecos;
+	}
+	
+	public Endereco getEndPadrao() {
+		return endPadrao;
+	}
+
+	public void setEndPadrao(Endereco endPadrao) {
+		this.endPadrao = endPadrao;
 	}
 
 	@Override

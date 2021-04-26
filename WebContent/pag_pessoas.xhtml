@@ -19,7 +19,7 @@
 	<ui:define name="conteudo">
 	
 		 <h:form id="form">
-	        <p:dataTable id="tblPessoas" var="pessoa" value="#{PagPessoa.listaPessoas}"
+	        <p:dataTable id="tblPessoas" var="pessoa" value="#{PagPessoa.novaListaPessoas}"
 	         paginator="true" rows="15" emptyMessage="Nenhum registro foi encontrado!">
 	         
 	         	<f:facet name="header">
@@ -43,15 +43,147 @@
 	                <h:outputText value="#{pessoa.email}" />
 	            </p:column>
 	            
-	            <p:column headerText="Endereços">
-	                <p:dataList var="end" value="#{pessoa.enderecos}" 
-	                	emptyMessage="Não tem endereços cadastrados!" >
-	                	#{end}
-	                </p:dataList>
+	            <p:column headerText="Endereço Padrão">
+	                <h:outputText value="#{pessoa.endPadrao}" />
 	            </p:column>
 	            
+<!-- 	            <p:column headerText="Endereços"> -->
+<!-- 	                <p:dataList var="end" value="#{pessoa.enderecos}"  -->
+<!-- 	                	emptyMessage="Não tem endereços cadastrados!" > -->
+<!-- 	                	#{end} -->
+<!-- 	                </p:dataList> -->
+<!-- 	            </p:column> -->
+	            
+	            <p:column headerText="op">
+			        <p:commandButton icon="pi pi-pencil" actionListener="#{PagPessoa.PrepararEditar}"  
+			        	onclick="PF('dlgEditarPessoa').show()"
+			        	update=":fEditar:pgEditar"/>
+			        	
+			        <p:commandButton icon="ui-icon-trash" actionListener="#{PagPessoa.PrepararDeletar}"
+			        	onclick="PF('dlgDeletarPessoa').show()"
+			        	update=":fDeletar:pgDeletar"/>
+			        	
+			    </p:column>
+	            
 	        </p:dataTable>
+	        
+	        <p:commandButton icon="pi pi-user-plus" value="Cadastrar" actionListener="#{PagPessoa.PrepararCadastrar}"
+			        	onclick="PF('dlgCadastrarPessoa').show()"
+			        	update=":fCadastrar:pgCadastrar"/>
 	     </h:form>
+	     
+	     <p:dialog header="Cadastrar um cadastro de Pessoa" widgetVar="dlgCadastrarPessoa" modal="true"
+			showEffect="blind" hideEffect="explode" resizable="false" appendTo="@(body)">
+			
+			<h:form id="fCadastrar">
+				<p:outputPanel id="pgCadastrar" style="text-align:center;">
+					<p:panelGrid columns="2">
+						<p:outputLabel value="CPF" />
+						<p:inputText value="#{PagPessoa.pessoa.cpf}" />
+						
+						<p:outputLabel value="Nome" />
+						<p:inputText value="#{PagPessoa.pessoa.nome}"/>
+					
+						<p:outputLabel value="Celular" />
+						<p:inputText value="#{PagPessoa.pessoa.cel}"/>
+						
+						<p:outputLabel value="E-mail" />
+						<p:inputText value="#{PagPessoa.pessoa.email}"/>
+						
+					</p:panelGrid>
+					
+					<p:panelGrid columns="2">
+					
+						<p:commandButton value="Confirmar" actionListener="#{PagPessoa.Cadastrar}"
+							oncomplete="PF('dlgCadastrarPessoa').hide()"
+							update=":form:tblPessoas :msgGlobal" />
+						
+						<p:commandButton value="Cancelar" actionListener="#{PagPessoa.Clear}" 
+							oncomplete="PF('dlgCadastrarPessoa').hide()"
+							update=":fCadastrar:pgCadastrar"/>
+					
+					</p:panelGrid>
+				</p:outputPanel>
+			</h:form>
+		</p:dialog>
+	     
+	    <p:dialog header="Editar um cadastro de Pessoa" widgetVar="dlgEditarPessoa" modal="true"
+			showEffect="blind" hideEffect="explode" resizable="false" appendTo="@(body)">
+			
+			<h:form id="fEditar">
+				<p:outputPanel id="pgEditar" style="text-align:center;">
+					<p:panelGrid columns="2">
+						<p:outputLabel value="Id" />
+						<p:inputText value="#{PagPessoa.pessoa.cpf}" disabled="true" />
+						
+						<p:outputLabel value="Nome" />
+						<p:inputText value="#{PagPessoa.pessoa.nome}"/>
+					
+						<p:outputLabel value="Celular" />
+						<p:inputText value="#{PagPessoa.pessoa.cel}"/>
+						
+						<p:outputLabel value="E-mail" />
+						<p:inputText value="#{PagPessoa.pessoa.email}"/>
+						
+						<p:outputLabel value="Endereço Padrão" />
+						
+						<p:selectOneMenu id="selEndereco" value="#{PagPessoa.pessoa.endPadrao}"
+							converter="enderecoConverter">
+				            
+				            <f:selectItems value="#{PagPessoa.pessoa.enderecos}"
+				                 var="end" itemLabel="#{end}" itemValue="#{end}" />
+				        </p:selectOneMenu>
+						
+					</p:panelGrid>
+					
+					<p:panelGrid columns="2">
+					
+						<p:commandButton value="Confirmar" actionListener="#{PagPessoa.Update}"
+							oncomplete="PF('dlgEditarPessoa').hide()"
+							update=":form:tblPessoas :msgGlobal" />
+						
+						<p:commandButton value="Cancelar" actionListener="#{PagPessoa.Clear}" 
+							oncomplete="PF('dlgEditarPessoa').hide()"
+							update=":fEditar:pgEditar"/>
+					
+					</p:panelGrid>
+				</p:outputPanel>
+			</h:form>
+		</p:dialog>
+		
+		<p:dialog header="Apagar um cadastro de Pessoa" widgetVar="dlgDeletarPessoa" modal="true"
+			showEffect="blind" hideEffect="explode" resizable="false" appendTo="@(body)">
+			
+			<h:form id="fDeletar">
+				<p:outputPanel id="pgDeletar" style="text-align:center;">
+					<p:panelGrid columns="2">
+						<p:outputLabel value="Id" />
+						<p:inputText value="#{PagPessoa.pessoa.cpf}" disabled="true" />
+						
+						<p:outputLabel value="Nome" />
+						<p:inputText value="#{PagPessoa.pessoa.nome}" disabled="true"/>
+					
+						<p:outputLabel value="Celular" />
+						<p:inputText value="#{PagPessoa.pessoa.cel}" disabled="true"/>
+						
+						<p:outputLabel value="Celular" />
+						<p:inputText value="#{PagPessoa.pessoa.email}" disabled="true"/>
+						
+					</p:panelGrid>
+					
+					<p:panelGrid columns="2">
+					
+						<p:commandButton value="Confirmar" actionListener="#{PagPessoa.Deletar}"
+							oncomplete="PF('dlgDeletarPessoa').hide()"
+							update=":form:tblPessoas :msgGlobal" />
+						
+						<p:commandButton value="Cancelar" 
+							oncomplete="PF('dlgDeletarPessoa').hide()" />
+					
+					</p:panelGrid>
+				</p:outputPanel>
+			</h:form>
+		</p:dialog>
 	        
 	</ui:define>
 	
