@@ -43,7 +43,11 @@
 	                <h:outputText value="#{pessoa.email}" />
 	            </p:column>
 	            
-	            <p:column headerText="Endereço Padrão">
+	            <p:column headerText="Nascimento">
+	                <p:calendar value="#{pessoa.nascimento}" locale="pt_BR" navigator="true" pattern="dd.MM.yyyy"/>
+	            </p:column>
+	            
+	             <p:column headerText="Endereço Padrão">
 	                <h:outputText value="#{pessoa.endPadrao}" />
 	            </p:column>
 	            
@@ -90,6 +94,9 @@
 						<p:outputLabel value="E-mail" />
 						<p:inputText value="#{PagPessoa.pessoa.email}"/>
 						
+						<p:outputLabel value="Nascimento" />
+						<p:calendar value="#{PagPessoa.pessoa.nascimento}" locale="pt_BR" navigator="true" pattern="dd.MM.yyyy"/>
+						
 					</p:panelGrid>
 					
 					<p:panelGrid columns="2">
@@ -124,6 +131,9 @@
 						
 						<p:outputLabel value="E-mail" />
 						<p:inputText value="#{PagPessoa.pessoa.email}"/>
+						
+						<p:outputLabel value="Nascimento" />
+						<p:calendar id="inline" value="#{PagPessoa.pessoa.nascimento}" locale="pt_BR" mode="inline" />
 						
 						<p:outputLabel value="Endereço Padrão" />
 						
@@ -168,6 +178,9 @@
 						
 						<p:outputLabel value="Celular" />
 						<p:inputText value="#{PagPessoa.pessoa.email}" disabled="true"/>
+						
+						<p:outputLabel value="Nascimento" />
+						<p:calendar id="inline" value="#{PagPessoa.pessoa.nascimento}" mode="inline" />
 						
 					</p:panelGrid>
 					

@@ -1,6 +1,7 @@
 package model;
 
 import java.io.Serializable;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -17,6 +18,8 @@ public class Pessoa implements Serializable {
 	private List<Endereco> enderecos;
 	private Endereco endPadrao;
 	
+	private LocalDate nascimento;
+	
 	public Pessoa() { 
 		this.enderecos = new ArrayList<Endereco>();
 		this.endPadrao = new Endereco();
@@ -29,6 +32,16 @@ public class Pessoa implements Serializable {
 		this.cel = cel;
 		this.email = email;
 		this.enderecos = enderecos;
+	}
+
+	
+	
+	public LocalDate getNascimento() {
+		return nascimento;
+	}
+
+	public void setNascimento(LocalDate nascimento) {
+		this.nascimento = nascimento;
 	}
 
 	public int getCpf() {

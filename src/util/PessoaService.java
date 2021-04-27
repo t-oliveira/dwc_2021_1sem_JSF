@@ -2,6 +2,7 @@ package util;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.time.*;
 
 import model.Pessoa;
 
@@ -21,6 +22,8 @@ public class PessoaService {
 			p.setNome("Teste" + i);
 			p.setCel("(21) " + i + "1111-1111");
 			p.setEmail("teste" + i + "@gmail.com");
+			p.setNascimento(LocalDate.now());
+		
 			
 			EnderecoService serv = new EnderecoService(i -1);
 			
