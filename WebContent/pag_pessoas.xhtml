@@ -18,21 +18,28 @@
 	
 	<ui:define name="conteudo">
 	
-		 <h:form id="form">
+		<h:form id="form">
 	        <p:dataTable id="tblPessoas" var="pessoa" value="#{PagPessoa.novaListaPessoas}"
-	         paginator="true" rows="15" emptyMessage="Nenhum registro foi encontrado!">
+	         paginator="true" rows="15" emptyMessage="Nenhum registro foi encontrado!"
+	         editable="true">
 	         
+	         	<p:ajax event="rowEdit" listener="#{PagPessoa.onRowEdit}" update=":msgGlobal" />
+        		<p:ajax event="rowEditCancel" listener="#{PagPessoa.onRowCancel}" update=":msgGlobal" />
+        		
 	         	<f:facet name="header">
                 	Lista de Pessoas da Camada Service
             	</f:facet>
 	         
 	
 	            <p:column headerText="CPF">
-	                <h:outputText value="#{pessoa.cpf}" />
+		            <h:outputText value="#{pessoa.cpf}" />
 	            </p:column>
 	            
 	            <p:column headerText="Nome">
-	                <h:outputText value="#{pessoa.nome}" />
+	                <p:cellEditor>
+		                <f:facet name="output"><h:outputText value="#{pessoa.nome}" /></f:facet>
+		                <f:facet name="input"><p:inputText id="impNome" value="#{pessoa.nome}" style="width:100%"/></f:facet>
+		            </p:cellEditor>
 	            </p:column>
 	            
 	            <p:column headerText="Celular">
@@ -68,6 +75,10 @@
 			        	update=":fDeletar:pgDeletar"/>
 			        	
 			    </p:column>
+			    
+			    <p:column style="width:35px">
+		            <p:rowEditor />
+		        </p:column>
 	            
 	        </p:dataTable>
 	        
@@ -76,7 +87,7 @@
 			        	update=":fCadastrar:pgCadastrar"/>
 	     </h:form>
 	     
-	     <p:dialog header="Cadastrar um cadastro de Pessoa" widgetVar="dlgCadastrarPessoa" modal="true"
+	    <p:dialog header="Cadastrar um cadastro de Pessoa" widgetVar="dlgCadastrarPessoa" modal="true"
 			showEffect="blind" hideEffect="explode" resizable="false" appendTo="@(body)">
 			
 			<h:form id="fCadastrar">

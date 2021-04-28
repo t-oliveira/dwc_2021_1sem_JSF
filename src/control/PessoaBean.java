@@ -3,9 +3,14 @@ package control;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
+import javax.faces.context.FacesContext;
 import javax.faces.model.ListDataModel;
+
+import org.primefaces.event.CellEditEvent;
+import org.primefaces.event.RowEditEvent;
 
 import model.Pessoa;
 import util.JSFMessage;
@@ -98,6 +103,27 @@ public class PessoaBean {
 			// TODO: handle exception
 		}
 	}
+	
+	//----------------------------------
+	public void onRowEdit(RowEditEvent<Pessoa> event) {
+        FacesMessage msg = new FacesMessage("Pessoa editada", event.getObject().getNome());
+        FacesContext.getCurrentInstance().addMessage(null, msg);
+    }
+     
+    public void onRowCancel(RowEditEvent<Pessoa> event) {
+        FacesMessage msg = new FacesMessage("Edição cancelada", event.getObject().getNome());
+        FacesContext.getCurrentInstance().addMessage(null, msg);
+    }
+     
+    public void onCellEdit(CellEditEvent event) {
+        Object oldValue = event.getOldValue();
+        Object newValue = event.getNewValue();
+         
+        if(newValue != null && !newValue.equals(oldValue)) {
+            FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Celula alterada", "Old: " + oldValue + ", New:" + newValue);
+            FacesContext.getCurrentInstance().addMessage(null, msg);
+        }
+    }
 	
 	@PostConstruct
 	public void iniciar() {
