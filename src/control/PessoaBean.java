@@ -106,7 +106,7 @@ public class PessoaBean {
 	
 	//----------------------------------
 	public void onRowEdit(RowEditEvent<Pessoa> event) {
-        FacesMessage msg = new FacesMessage("Pessoa editada", event.getObject().getNome());
+        FacesMessage msg = new FacesMessage("Pessoa editada",  event.getObject().getNome());
         FacesContext.getCurrentInstance().addMessage(null, msg);
     }
      
