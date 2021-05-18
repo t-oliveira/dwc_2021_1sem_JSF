@@ -12,9 +12,11 @@ import javax.faces.model.ListDataModel;
 import org.primefaces.event.CellEditEvent;
 import org.primefaces.event.RowEditEvent;
 
+import dao.FabricaConexao;
+import dao.PessoaDAO;
 import model.Pessoa;
 import util.JSFMessage;
-import util.PessoaService;
+//import util.PessoaService;
 
 @ManagedBean(name = "PagPessoa")
 @ViewScoped
@@ -115,7 +117,7 @@ public class PessoaBean {
         FacesContext.getCurrentInstance().addMessage(null, msg);
     }
      
-    public void onCellEdit(CellEditEvent event) {
+    public void onCellEdit(CellEditEvent<?> event) {
         Object oldValue = event.getOldValue();
         Object newValue = event.getNewValue();
          
@@ -129,8 +131,12 @@ public class PessoaBean {
 	public void iniciar() {
 		try {
 			//Popular Lista de Pessoas
-			PessoaService serv = new PessoaService();
-			this.listaPessoas = serv.getListaDePessoas();
+			//PessoaService serv = new PessoaService();
+			//FabricaConexao fab = new FabricaConexao();
+			//Connection conn = fab.fazerConexao();
+			PessoaDAO dao = new PessoaDAO(FabricaConexao.fazerConexao());
+			
+			this.listaPessoas = dao.recuperarTodos();
 			
 			this.novaListaPessoas = new ListDataModel<Pessoa>(this.listaPessoas);
 			

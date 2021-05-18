@@ -10,7 +10,7 @@ public class Pessoa implements Serializable {
 	//Para serialização!
 	private static final long serialVersionUID = 1L;
 	
-	private int cpf;
+	private Long cpf;
 	private String nome;
 	private String cel;
 	private String email;
@@ -25,12 +25,13 @@ public class Pessoa implements Serializable {
 		this.endPadrao = new Endereco();
 	}
 	
-	public Pessoa(int cpf, String nome, String cel, String email, List<Endereco> enderecos) {
+	public Pessoa(Long cpf, String nome, String cel, String email, Endereco endPadrao, List<Endereco> enderecos) {
 		super();
 		this.cpf = cpf;
 		this.nome = nome;
 		this.cel = cel;
 		this.email = email;
+		this.endPadrao = endPadrao;
 		this.enderecos = enderecos;
 	}
 
@@ -44,11 +45,11 @@ public class Pessoa implements Serializable {
 		this.nascimento = nascimento;
 	}
 
-	public int getCpf() {
+	public Long getCpf() {
 		return cpf;
 	}
 	
-	public void setCpf(int cpf) {
+	public void setCpf(Long cpf) {
 		this.cpf = cpf;
 	}
 	
@@ -96,7 +97,7 @@ public class Pessoa implements Serializable {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + cpf;
+		result = prime * result + ((cpf == null) ? 0 : cpf.hashCode());
 		return result;
 	}
 
@@ -109,7 +110,10 @@ public class Pessoa implements Serializable {
 		if (getClass() != obj.getClass())
 			return false;
 		Pessoa other = (Pessoa) obj;
-		if (cpf != other.cpf)
+		if (cpf == null) {
+			if (other.cpf != null)
+				return false;
+		} else if (!cpf.equals(other.cpf))
 			return false;
 		return true;
 	}

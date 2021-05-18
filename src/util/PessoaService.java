@@ -18,7 +18,7 @@ public class PessoaService {
 			
 			Pessoa p = new Pessoa();
 			
-			p.setCpf(i);
+			p.setCpf(i + 0L);
 			p.setNome("Teste" + i);
 			p.setCel("(21) " + i + "1111-1111");
 			p.setEmail("teste" + i + "@gmail.com");
