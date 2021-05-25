@@ -27,7 +27,8 @@ public class PessoaBean {
 	private Pessoa pessoa;
 	
 	public PessoaBean() {
-		//Popular Lista
+		//Instaciar back-bean (pessoa) para não haver NullPoint
+		this.pessoa = new Pessoa();
 	}
 
 	public List<Pessoa> getListaPessoas() {
@@ -72,37 +73,49 @@ public class PessoaBean {
 	
 	public void Cadastrar() {
 		try {
-			this.listaPessoas.add(this.pessoa);
 			
+			PessoaDAO dao = new PessoaDAO(FabricaConexao.fazerConexao());
+			
+			dao.inserir(this.pessoa);
+			
+			this.listaPessoas.add(this.pessoa);
 			this.novaListaPessoas = new ListDataModel<Pessoa>(this.listaPessoas);
 			
 			JSFMessage.adicionarMensagemDeSucesso("Pessoa cadastrada com sucesso!");
 			
 		} catch (Exception e) {
-			// TODO: handle exception
+			e.printStackTrace();
 		}
 	}
 	
 	public void Update() {
 		try {
-			JSFMessage.adicionarMensagemDeSucesso("Pessoa atualizada com sucesso!");
+			
+			PessoaDAO dao = new PessoaDAO(FabricaConexao.fazerConexao());
+			if(dao.atualizar(this.pessoa)) {
+							
+				JSFMessage.adicionarMensagemDeSucesso("Pessoa atualizada com sucesso!");
+			}
 			
 		} catch (Exception e) {
-			// TODO: handle exception
+			e.printStackTrace();
 		}
 	}
 	
 	public void Deletar() {
 		try {
 
-			this.listaPessoas.remove(this.pessoa);
+			PessoaDAO dao = new PessoaDAO(FabricaConexao.fazerConexao());
+			if(dao.deletar(this.pessoa.getCpf())) {
 			
-			this.novaListaPessoas = new ListDataModel<Pessoa>(this.listaPessoas);
-			
-			JSFMessage.adicionarMensagemDeSucesso("Pessoa deletada com sucesso!");
+				this.listaPessoas.remove(this.pessoa);
+				this.novaListaPessoas = new ListDataModel<Pessoa>(this.listaPessoas);
+				
+				JSFMessage.adicionarMensagemDeSucesso("Pessoa deletada com sucesso!");
+			}
 			
 		} catch (Exception e) {
-			// TODO: handle exception
+			e.printStackTrace();
 		}
 	}
 	

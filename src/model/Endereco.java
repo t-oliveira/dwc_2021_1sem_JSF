@@ -12,6 +12,8 @@ public class Endereco implements Serializable {
 	private String cidade;
 	private String estado;
 	private String cep;
+	private Pessoa pessoa;
+	
 	
 	public Endereco() {
 		
@@ -72,6 +74,14 @@ public class Endereco implements Serializable {
 	
 	public void setCep(String cep) {
 		this.cep = cep;
+	}
+	
+	public Pessoa getPessoa() {
+		return pessoa;
+	}
+
+	public void setPessoa(Pessoa pessoa) {
+		this.pessoa = pessoa;
 	}
 
 	@Override

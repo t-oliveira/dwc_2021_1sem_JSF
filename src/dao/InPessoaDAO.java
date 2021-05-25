@@ -13,7 +13,7 @@ public interface InPessoaDAO {
 	
 	List<Pessoa> recuperarTodos() throws SQLException;
 	
-	Boolean atualizar(Pessoa _objeto) throws SQLException;
+	boolean atualizar(Pessoa _objeto) throws SQLException;
 	
-	Boolean deletar(int _cpf) throws SQLException;
+	boolean deletar(Long _cpf) throws SQLException;
 }
