@@ -52,9 +52,11 @@ public class PessoaDAO implements InPessoaDAO {
 			String nome = rs.getString(2);
 			String cel = rs.getString("cel");
 			String email = rs.getString("email");
-			//int endPadrao = rs.getInt("end_padrao");
+			int endPadrao = rs.getInt("end_padrao");
 			
-			p = new Pessoa(cpf, nome, cel, email, null, null);
+			EnderecoDAO daoEnd = new EnderecoDAO(this.conexao);
+			
+			p = new Pessoa(cpf, nome, cel, email, daoEnd.recuperarPeloID(endPadrao), daoEnd.recuperarEnderecosPorPessoa(cpf));
 		}
 		
 		return p;
@@ -81,9 +83,11 @@ public class PessoaDAO implements InPessoaDAO {
 			String nome = rs.getString(2);
 			String cel = rs.getString("cel");
 			String email = rs.getString("email");
-			//int endPadrao = rs.getInt("end_padrao");
+			int endPadrao = rs.getInt("end_padrao");
 			
-			Pessoa p = new Pessoa(cpf, nome, cel, email, new Endereco(), new ArrayList<Endereco>());
+			EnderecoDAO daoEnd = new EnderecoDAO(this.conexao);
+			
+			Pessoa p = new Pessoa(cpf, nome, cel, email, daoEnd.recuperarPeloID(endPadrao), daoEnd.recuperarEnderecosPorPessoa(cpf));
 			
 			listaPessoas.add(p);
 		}

@@ -146,4 +146,40 @@ public class EnderecoDAO implements InEnderecoDAO {
 		}
 	}
 
+	public List<Endereco> recuperarEnderecosPorPessoa(Long _cpf) throws SQLException {
+
+		List<Endereco> listaEnderecos = new ArrayList<Endereco>();
+		
+		//Preenchimento da Lista para retorno da Camada Requisitante
+		
+		String SQL = "SELECT "
+				+ "*"
+				+ " FROM endereco WHERE pessoa_cpf = ?";
+		
+		PreparedStatement ps = this.conexao.prepareStatement(SQL);
+		ps.setLong(1, _cpf);
+		
+		ResultSet rs = ps.executeQuery();
+		
+		//ENQUANTO RS CONSEGUIR APONTAR PARA O PROXIMO REGISTRO FAÇA
+		while(rs.next()) {
+			
+			Endereco endereco = new Endereco();
+			
+			endereco = new Endereco();
+			endereco.setId(rs.getInt(1));
+			endereco.setDescricao(rs.getString(2));
+			endereco.setBairro(rs.getString(3));
+			endereco.setCidade(rs.getString(4));
+			endereco.setEstado(rs.getString(5));
+			endereco.setCep(rs.getString(6));
+		
+			
+			listaEnderecos.add(endereco);
+		}
+		
+		
+		//Retorno do Método
+		return listaEnderecos;
+	}
 }
